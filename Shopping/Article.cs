@@ -2,6 +2,7 @@
 {
     public class Article
     {
+        internal int ArticleId;
         #region private attributes
         private int _id;
         private string _description = "";

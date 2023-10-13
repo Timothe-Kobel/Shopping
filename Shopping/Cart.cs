@@ -64,7 +64,19 @@
 
         public int MostExpensive()
         {
-            throw new NotImplementedException();
+            int mostExpensiveId = _cartItems[0].Article.ArticleId;
+            decimal highestPrice = (decimal)_cartItems[0].Article.Price;
+
+            foreach (var cartItem in _cartItems)
+            {
+                if ((decimal)cartItem.Article.Price > highestPrice)
+                {
+                    highestPrice = (decimal)cartItem.Article.Price;
+                    mostExpensiveId = cartItem.Article.ArticleId;
+                }
+            }
+
+            return mostExpensiveId;
         }
         #endregion public methods
     }
