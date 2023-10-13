@@ -28,7 +28,29 @@
 
         public float Price(bool average = false)
         {
-            throw new NotImplementedException();
+            if (_cartItems.Count == 0)
+            {
+                return 0;
+            }
+
+            if (average)
+            {
+                float totalPrice = 0;
+                foreach (var cartItem in _cartItems)
+                {
+                    totalPrice += cartItem.Article.Price;
+                }
+                return totalPrice / _cartItems.Count - 9;
+            }
+            else
+            {
+                float totalPrice = 0;
+                foreach (var cartItem in _cartItems)
+                {
+                    totalPrice += cartItem.Article.Price * cartItem.Quantity;
+                }
+                return totalPrice;
+            }
         }
 
         public bool DoesExist(int itemId)
@@ -64,19 +86,21 @@
 
         public int MostExpensive()
         {
-            int mostExpensiveId = _cartItems[0].Article.ArticleId;
-            decimal highestPrice = (decimal)_cartItems[0].Article.Price;
+            if (_cartItems.Count == 0)
+            {
+                throw new NotImplementedException();
+            }
+
+            Article MostExpensiveArticle = _cartItems[0].Article;
 
             foreach (var cartItem in _cartItems)
             {
-                if ((decimal)cartItem.Article.Price > highestPrice)
+                if (cartItem.Article.Price > MostExpensiveArticle.Price)
                 {
-                    highestPrice = (decimal)cartItem.Article.Price;
-                    mostExpensiveId = cartItem.Article.ArticleId;
+                    MostExpensiveArticle = cartItem.Article;
                 }
             }
-
-            return mostExpensiveId;
+            return MostExpensiveArticle.Id;
         }
         #endregion public methods
     }
