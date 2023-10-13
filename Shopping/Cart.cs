@@ -9,19 +9,20 @@
         #region public methods
         public void Add(List<CartItem> cartItems)
         {
-            throw new NotImplementedException();
+            _cartItems = cartItems;
         }
 
         public void Remove(List<CartItem> cartItemsToRemove)
         {
-            throw new NotImplementedException();
+            _cartItems = cartItemsToRemove;
+            cartItemsToRemove.Clear();
         }
 
         public List<CartItem> CartItems
         {
             get
             {
-                throw new NotImplementedException();
+                return _cartItems;
             }
         }
 
@@ -30,14 +31,35 @@
             throw new NotImplementedException();
         }
 
-        public bool DoesExist(int articleId)
+        public bool DoesExist(int itemId)
         {
-            throw new NotImplementedException();
+            if (_cartItems.Any(cartItem => cartItem.Article.Id == itemId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public int Cheapest()
         {
-            throw new NotImplementedException();
+            if (_cartItems.Count == 0)
+            {
+                throw new NotImplementedException();
+            }
+
+            Article cheapestArticle = _cartItems[0].Article;
+
+            foreach (var cartItem in _cartItems)
+            {
+                if (cartItem.Article.Price < cheapestArticle.Price)
+                {
+                    cheapestArticle = cartItem.Article;
+                }
+            }
+            return cheapestArticle.Id;
         }
         #endregion public methods
     }

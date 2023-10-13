@@ -11,14 +11,16 @@
         #region public methods
         public Article(int id, string description, float price)
         {
-            throw new NotImplementedException();
+            _id = id;
+            _description = description;
+            _price = price;
         }
 
         public int Id
         {
             get
             {
-                throw new NotImplementedException();
+                return _id;
             }
         }
 
@@ -26,11 +28,27 @@
         {
             get
             {
-                throw new NotImplementedException();
+                return _description;
             }
             set
             {
-                throw new NotImplementedException();
+                char[] caracteresSpeciaux = { '!', '*', '+', '/' };
+                foreach (char caractereUnAuthorized in caracteresSpeciaux)
+                {
+                    if (value.Contains(caractereUnAuthorized))
+                    {
+                        throw new SpecialCharInDescriptionException();
+                    }
+                }
+                if (value.Contains(" ") == false)
+                {
+                    throw new TooShortDescriptionException();
+                }
+                if (value.Length >= 50)
+                {
+                    throw new TooLongDescriptionException();
+                }
+                _description = value;
             }
         }
 
@@ -38,7 +56,7 @@
         {
             get
             {
-                throw new NotImplementedException();
+                return _price;
             }
         }
         #endregion public methods
