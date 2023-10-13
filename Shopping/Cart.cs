@@ -39,6 +39,11 @@
         {
             throw new NotImplementedException();
         }
+
+        public int MostExpensive()
+        {
+            throw new NotImplementedException();
+        }
         #endregion public methods
     }
 }

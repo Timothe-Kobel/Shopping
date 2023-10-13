@@ -199,7 +199,7 @@ namespace TestShopping
             //when
 
             //then
-            Assert.AreEqual(10, _cart.Cheapest());
+            Assert.AreEqual(10, _cart.MostExpensive());
         }
     }
 }
